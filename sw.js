@@ -1,4 +1,4 @@
-const CACHE_NAME = 'mercado-manu-v5.1';
+const CACHE_NAME = 'mercado-manu-v5.2-pwa';
 const APP_SHELL = [
   './',
   './index.html',
@@ -26,18 +26,20 @@ self.addEventListener('activate', event => {
 self.addEventListener('fetch', event => {
   const req = event.request;
   if (req.method !== 'GET') return;
-
   const url = new URL(req.url);
 
-  // Never cache API calls or cross-origin data such as BCV/AI responses.
-  if (url.pathname.includes('/api/') || url.origin !== self.location.origin) return;
+  // APIs externas/BCV/IA siempre van a red y nunca se guardan en cache.
+  if (url.origin !== self.location.origin || url.pathname.includes('/api/')) return;
 
+  // Navegacion: intenta red; si no hay conexion abre la app guardada.
   if (req.mode === 'navigate') {
     event.respondWith(
       fetch(req)
         .then(res => {
-          const copy = res.clone();
-          caches.open(CACHE_NAME).then(cache => cache.put('./index.html', copy));
+          if (res && res.ok) {
+            const copy = res.clone();
+            caches.open(CACHE_NAME).then(cache => cache.put('./index.html', copy));
+          }
           return res;
         })
         .catch(() => caches.match('./index.html'))
@@ -45,6 +47,7 @@ self.addEventListener('fetch', event => {
     return;
   }
 
+  // Recursos locales: cache primero.
   event.respondWith(
     caches.match(req).then(cached => cached || fetch(req).then(res => {
       if (res && res.ok) {
