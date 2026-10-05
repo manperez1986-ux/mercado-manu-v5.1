@@ -1,28 +1,76 @@
-
+{
   "name": "Mercado Manu AI",
   "short_name": "MercadoManu",
   "description": "Asistente inteligente para compras, precios, presupuesto e historial.",
-  "id": "./",
-  "start_url": "./",
+  "id": "./index.html",
+  "start_url": "./index.html?source=pwa",
   "scope": "./",
   "display": "standalone",
+  "display_override": [
+    "standalone",
+    "minimal-ui"
+  ],
   "orientation": "portrait-primary",
   "background_color": "#0a0a15",
   "theme_color": "#00b4d8",
   "lang": "es-VE",
-  "categories": ["shopping", "finance", "utilities"],
+  "dir": "ltr",
+  "categories": [
+    "shopping",
+    "finance",
+    "utilities"
+  ],
+  "prefer_related_applications": false,
   "icons": [
     {
       "src": "./icons/icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "./icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
     },
     {
       "src": "./icons/icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "./icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Nueva compra",
+      "short_name": "Comprar",
+      "url": "./index.html?source=pwa&tab=Calc",
+      "icons": [
+        {
+          "src": "./icons/icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Lista de faltantes",
+      "short_name": "Faltantes",
+      "url": "./index.html?source=pwa&tab=Plan",
+      "icons": [
+        {
+          "src": "./icons/icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
     }
   ]
 }
